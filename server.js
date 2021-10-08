@@ -3,6 +3,7 @@ import path from "path";
 import http from "http";
 import socketio from "socket.io";
 import { formatMessage } from "./public/utils/messages.js";
+import cors from 'cors'
 import {
   getCurrentUser,
   getRoomUsers,
@@ -14,16 +15,21 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const botName = "elias";
-// Set static folder
+
+app.use(cors());
+
+//Set static folder
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));
 
 // Run when a client connects
 io.on("connection", (socket) => {
+  console.log('heah')
   socket.on("joinRoom", ({ username, room }) => {
+    console.log('connected')
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
-
+    
     //welcome current user
     socket.emit("message", formatMessage(botName, "welcome to chat"));
 
@@ -51,7 +57,6 @@ io.on("connection", (socket) => {
   // Runs when client disconncts
   socket.on("disconnect", () => {
     const user = userLeave(socket.id);
-    console.log(user);
     if (user) {
       io.to(user.room).emit(
         "message",
@@ -66,6 +71,6 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = 3000 || process.env.PORT;
+const PORT = 5000 || process.env.PORT;
 
 server.listen(PORT, () => console.log(`server running on ${PORT}`));

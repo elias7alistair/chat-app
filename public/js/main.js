@@ -1,23 +1,22 @@
 const chatForm = document.getElementById(`chat-form`);
 const chatMessages = document.querySelector(".chat-messages");
-const roomName = document.getElementById('room-name');
-const userList = document.getElementById('users');
+const roomName = document.getElementById("room-name");
+const userList = document.getElementById("users");
 
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
 
-
 const socket = io();
-
+console.log(socket);
 //Join chatroom
-socket.emit('joinRoom',{username,room})
+socket.emit("joinRoom", { username, room });
 
 //get room users
-socket.on('roomUsers',({room,users})=>{
-  outputRoomName(room)
-  outputUsers(users)
-})
+socket.on("roomUsers", ({ room, users }) => {
+  outputRoomName(room);
+  outputUsers(users);
+});
 
 socket.on("message", (message) => {
   console.log(message);
@@ -55,19 +54,19 @@ function outputRoomName(room) {
 }
 
 function outputUsers(users) {
-  userList.innerHTML = '';
+  userList.innerHTML = "";
   users.forEach((user) => {
-    const li = document.createElement('li');
+    const li = document.createElement("li");
     li.innerText = user.username;
     userList.appendChild(li);
   });
 }
 
 //Prompt the user before leave chat room
-document.getElementById('leave-btn').addEventListener('click', () => {
-  const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
+document.getElementById("leave-btn").addEventListener("click", () => {
+  const leaveRoom = confirm("Are you sure you want to leave the chatroom?");
   if (leaveRoom) {
-    window.location = '../index.html';
+    window.location = "../index.html";
   } else {
   }
 });
