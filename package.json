@@ -1,8 +1,9 @@
 {
-  "name": "chatcord",
+  "name": "realtimechat",
   "version": "1.0.0",
   "description": "Realtime chat app with rooms",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
@@ -11,10 +12,18 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "moment": "^2.24.0",
-    "socket.io": "^2.4.0"
+    "moment": "^2.29.1",
+    "socket.io": "^2.4.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bradtraversy/chatcord.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bradtraversy/chatcord/issues"
+  },
+  "homepage": "https://github.com/bradtraversy/chatcord#readme"
 }
