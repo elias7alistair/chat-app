@@ -2,6 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 import express from "express";
 import { formatMessage } from "./public/utils/messages.js";
+import path from 'path'
 import cors from 'cors'
 import {
   getCurrentUser,
@@ -11,6 +12,15 @@ import {
 } from "./public/utils/user.js";
 
 const app = express();
+const __dirname = path.resolve()
+if (true) {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+}
+
 const botName = "elias";
 // app.use(cors());
 const serverListner = http.createServer(app);
@@ -67,7 +77,7 @@ io.on("connection", (socket) => {
   });
 });
 
-serverListner.listen(5000,()=>console.log(`${5000}`));
+serverListner.listen(process.env.PORT || 5000,()=>console.log(`${5000}`));
 
 // import express from "express";
 // import path from "path";
