@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import styled from "styled-components/macro";
 
-const socket = io.connect("localhost:5000");
+const socket = io.connect("https://alistairdevchat.herokuapp.com");
 
 const Chat = ({ match }) => {
   const roomName = match.params.room;
