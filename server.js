@@ -22,7 +22,7 @@ if (true) {
 }
 
 const botName = "elias";
-// app.use(cors());
+app.use(cors());
 const serverListner = http.createServer(app);
 var io = new Server(serverListner, { cors: { origin: '*' } });
 
